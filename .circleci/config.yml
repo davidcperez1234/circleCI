@@ -20,7 +20,7 @@ jobs:
           name: "build storefront deps"
           command:
             cd my-medusa-starter &&
-            npm
+            npm i
 
       - save_cache:
           paths:
