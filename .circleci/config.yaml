@@ -1,0 +1,48 @@
+version 2.1
+
+jobs:
+  build-storefront:
+    docker:
+      - image: cimg/node:18.11.0
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - restore_cache:
+          keys:
+            - devs-v1--{{ checksum "my-medusa-starter/package-lock.json" }}
+            - devs-v1--
+
+      - run:
+          name: "build storefornt deps"
+          command:
+            cd my-medusa-starter &&
+            npm
+
+      - save_cache:
+          paths:
+            - my-medusa-starter/node-modules
+          key: devs-v1--{{ checksum "my-medusa-starter/package-lock.json" }}
+
+  build-admin:
+    docker:
+      - image: cimg/node:18.11.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - restore_cache:
+          keys:
+            - deps-v1--{{ checksum "my-medusa-starter/package-lock.json" }}
+            - deps-v1--
+
+      - run:
+          name: "build admin deps"
+          command:
+            cd medusa-admin &&
+            npm i
+
+
