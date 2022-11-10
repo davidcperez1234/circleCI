@@ -17,7 +17,7 @@ jobs:
             - devs-v1--
 
       - run:
-          name: "build storefornt deps"
+          name: "build storefront deps"
           command:
             cd my-medusa-starter &&
             npm
