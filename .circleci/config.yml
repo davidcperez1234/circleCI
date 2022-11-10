@@ -45,4 +45,13 @@ jobs:
             cd medusa-admin &&
             npm i
 
+      - run:
+          name: "what branch ?"
+          command:
+            echo $CIRCLE_BRANCH
 
+workflows:
+  medusa:
+    jobs:
+      - build-storefront
+      - build-admin
